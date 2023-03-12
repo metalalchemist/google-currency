@@ -32,8 +32,8 @@ def convert(currency_from, currency_to, amnt, replace_commas=True):
         raise TypeError("amount should be either int or float, passed %s" % type(amnt))
 
     url = "http://216.58.221.46/search?q=convert+{amount}+{frm}+to+{to}&hl=en&lr=lang_en".format(amount = str(amnt),
-                                                                                                 frm    = currency_from,
-                                                                                                 to     = currency_to)
+                                                                                                 frm    = CODES[currency_from],
+                                                                                                 to     = CODES[currency_to])
 
     currency_from = currency_from.upper()
     currency_to   = currency_to.upper()
@@ -64,7 +64,6 @@ def convert(currency_from, currency_to, amnt, replace_commas=True):
         response = requests.get(url, headers={"Range": "bytes=0-1"})
 
         html = response.text
-
         results = re.findall("[\d*\,]*\.\d* {currency_to_name}".format(currency_to_name=currency_to_name), html)
 
         # converted_amount_str = "0.0 {to}".format(to=currency_to)
