@@ -31,12 +31,11 @@ def convert(currency_from, currency_to, amnt, replace_commas=True):
     if not isinstance(amnt, float) and not isinstance(amnt, int):
         raise TypeError("amount should be either int or float, passed %s" % type(amnt))
 
+    currency_from = currency_from.upper()
+    currency_to   = currency_to.upper()
     url = "http://216.58.221.46/search?q=convert+{amount}+{frm}+to+{to}&hl=en&lr=lang_en".format(amount = str(amnt),
                                                                                                  frm    = CODES[currency_from],
                                                                                                  to     = CODES[currency_to])
-
-    currency_from = currency_from.upper()
-    currency_to   = currency_to.upper()
 
     # This will be returned as default if the given code are not present in our database
     default_response = {
